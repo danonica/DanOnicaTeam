@@ -233,6 +233,37 @@
             color: #8b949e;
             line-height: 1.5;
         }
+        .token-details {
+            margin-top: 24px;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 24px;
+        }
+        .token-details h4 {
+            color: #f0883e;
+            margin-bottom: 12px;
+        }
+        .token-details ul {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 20px;
+        }
+        .token-details li {
+            color: #8b949e;
+            font-size: 0.88rem;
+            line-height: 1.5;
+            padding-left: 18px;
+            position: relative;
+        }
+        .token-details li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #f0883e;
+        }
         .prompt-example {
             background: #161b22;
             border: 1px solid #30363d;
@@ -513,6 +544,11 @@
                 <div class="label">Core Topics</div>
             </div>
             <div class="stat-box">
+                <div class="stat-icon">📚</div>
+                <div class="number">Finite</div>
+                <div class="label">Knowledge</div>
+            </div>
+            <div class="stat-box">
                 <div class="stat-icon">✨</div>
                 <div class="number">∞</div>
                 <div class="label">Possibilities</div>
@@ -523,7 +559,7 @@
     <!-- SLIDE 2: Access and usage -->
     <div class="slide slide-2">
         <span class="slide-number">2 / 6</span>
-        <h2>📂 How to Get Access</h2>
+        <h2>📂 How to Access</h2>
         <div class="channel-grid">
             <div class="channel-card">
                 <div class="icon">🤖</div>
@@ -572,7 +608,7 @@
         <div class="practices-grid">
             <div class="practice-card">
                 <h3>🛠️ RAG-Based Agents</h3>
-                <p>Use retrieval-augmented generation for customer support, issue triage, requirement analysis, and knowledge-heavy workflows.</p>
+                <p>Use powerful public agents with your data, SC2 included, for fast customer support, issue analysis, condensing vast knowledge into strong argumentations.</p>
                 <div class="example">
                     Support ticket → retrieve similar cases<br>
                     Requirement → find related specs<br>
@@ -594,7 +630,7 @@
             </div>
             <div class="practice-card">
                 <h3>🔬 State-of-the-Art Analysis</h3>
-                <p>Share updates on the latest techniques, model capabilities, evaluation patterns, and practical engineering implications.</p>
+                <p>Use genAI for covering vast information and articles in your preferred domain, produce succinct summaries, and convey the core advancement in the domain.</p>
                 <div class="example">
                     New model release<br>
                     Internal benchmark comparison<br>
@@ -607,7 +643,7 @@
                 <h3>☁️ MiDAS, ViPER & Cloud Development</h3>
                 <p>Exchange lessons learned from internal platforms and cloud-native GenAI development patterns, pipelines, and deployments.</p>
                 <div class="example">
-                    MiDAS analytics workflows<br>
+                    MiDAS agents for the V-cycle<br>
                     ViPER development practices<br>
                     Cloud automation with GenAI
                 </div>
@@ -628,7 +664,7 @@
                 <div class="icon" style="font-size:2rem;">📉</div>
                 <div class="metric">Lower</div>
                 <div class="metric-label">Token Waste</div>
-                <div class="description">Reduce unnecessary prompt size, repeated context, and avoidable retries.</div>
+                <div class="description">Reduce unnecessary prompt size, repeated context, and avoidable retries with better orchestration and caching.</div>
             </div>
             <div class="cost-card">
                 <div class="icon" style="font-size:2rem;">⚡</div>
@@ -642,6 +678,18 @@
                 <div class="metric-label">Engineering Value</div>
                 <div class="description">Focus AI usage on real developer productivity and business impact.</div>
             </div>
+        </div>
+        <div class="token-details">
+            <h4>🧠 Efficiency for Tokens</h4>
+            <ul>
+                <li>Create the plan with a smarter, more expensive agent such as Opus 4.6 as orchestrator.</li>
+                <li>Use long and detailed prompts when needed — even with 1 day of preparation — to reduce rework later.</li>
+                <li>Apply agentic or fleet mode with lower-cost models for execution after the orchestration step.</li>
+                <li>Use a skills folder so you can enable or disable what the agent uses.</li>
+                <li>Cached input can reduce cost dramatically — around 10 times lower cost for reused context.</li>
+                <li>The grill-me skill can ask the user at each step to choose among several options while also suggesting the preferred one.</li>
+                <li>The Jira skill can document in the Jira ticket all interaction with the genAI agent.</li>
+            </ul>
         </div>
         <div class="prompt-example">
             <h4>💡 Good Prompts vs Bad Prompts</h4>
