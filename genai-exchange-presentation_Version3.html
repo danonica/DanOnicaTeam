@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenAI Exchange – 400 Developers Community</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0d1117;
+            color: #e6edf3;
+            overflow: hidden;
+            height: 100vh;
+        }
+        .slide-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .slide {
+            min-width: 100vw;
+            height: 100vh;
+            padding: 60px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .slide-1 {
+            background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #1a2332 100%);
+            align-items: center;
+            text-align: center;
+        }
+        .slide-1 h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(90deg, #58a6ff, #3fb950, #f0883e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+        .slide-1 .subtitle {
+            font-size: 1.4rem;
+            color: #8b949e;
+            margin-bottom: 40px;
+        }
+        .slide-1 .stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .stat-box {
+            text-align: center;
+            padding: 30px;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            background: #161b22;
+            min-width: 180px;
+        }
+        .stat-box .number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #58a6ff;
+        }
+        .stat-box .label {
+            font-size: 1rem;
+            color: #8b949e;
+            margin-top: 8px;
+        }
+
+        .slide-2 {
+            background: linear-gradient(135deg, #0d1117 0%, #1c1f26 100%);
+        }
+        .slide-2 h2 {
+            font-size: 2.5rem;
+            color: #58a6ff;
+            margin-bottom: 40px;
+        }
+        .channel-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .channel-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 24px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .channel-card:hover {
+            transform: translateY(-4px);
+            border-color: #58a6ff;
+        }
+        .channel-card .icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+        .channel-card h3 {
+            font-size: 1.1rem;
+            color: #e6edf3;
+            margin-bottom: 8px;
+        }
+        .channel-card p {
+            font-size: 0.85rem;
+            color: #8b949e;
+            line-height: 1.5;
+        }
+        .access-badge {
+            display: inline-block;
+            background: #1f6feb33;
+            border: 1px solid #1f6feb;
+            color: #58a6ff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            margin-top: 8px;
+        }
+
+        .slide-3 {
+            background: linear-gradient(135deg, #0d1117 0%, #0f1d0f 100%);
+        }
+        .slide-3 h2 {
+            font-size: 2.5rem;
+            color: #3fb950;
+            margin-bottom: 10px;
+        }
+        .slide-3 .slide-subtitle {
+            color: #8b949e;
+            font-size: 1.1rem;
+            margin-bottom: 35px;
+        }
+        .practices-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        .practice-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+        .practice-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: #3fb950;
+        }
+        .practice-card h3 {
+            color: #e6edf3;
+            margin-bottom: 12px;
+            font-size: 1.15rem;
+        }
+        .practice-card p {
+            color: #8b949e;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .practice-card .example {
+            margin-top: 12px;
+            background: #0d1117;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: #7ee787;
+            border: 1px solid #21262d;
+        }
+        .tag {
+            display: inline-block;
+            background: #3fb95022;
+            color: #3fb950;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            margin-right: 6px;
+            margin-top: 10px;
+        }
+
+        .slide-4 {
+            background: linear-gradient(135deg, #0d1117 0%, #1d1a0f 100%);
+        }
+        .slide-4 h2 {
+            font-size: 2.5rem;
+            color: #f0883e;
+            margin-bottom: 10px;
+        }
+        .slide-4 .slide-subtitle {
+            color: #8b949e;
+            font-size: 1.1rem;
+            margin-bottom: 35px;
+        }
+        .cost-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .cost-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 28px;
+            text-align: center;
+        }
+        .cost-card .metric {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #f0883e;
+            margin: 12px 0;
+        }
+        .cost-card .metric-label {
+            font-size: 0.9rem;
+            color: #8b949e;
+        }
+        .cost-card .description {
+            margin-top: 16px;
+            font-size: 0.85rem;
+            color: #8b949e;
+            line-height: 1.5;
+        }
+        .token-details {
+            margin-top: 24px;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 24px;
+        }
+        .token-details h4 {
+            color: #f0883e;
+            margin-bottom: 12px;
+        }
+        .token-details ul {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 20px;
+        }
+        .token-details li {
+            color: #8b949e;
+            font-size: 0.88rem;
+            line-height: 1.5;
+            padding-left: 18px;
+            position: relative;
+        }
+        .token-details li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #f0883e;
+        }
+        .prompt-example {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 24px;
+        }
+        .prompt-example h4 {
+            color: #f0883e;
+            margin-bottom: 12px;
+        }
+        .prompt-compare {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .prompt-bad, .prompt-good {
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            height: 260px;
+        }
+        .prompt-bad {
+            background: #f8514922;
+            border: 1px solid #f85149;
+            color: #ffa198;
+            overflow: hidden;
+        }
+        .prompt-good {
+            background: #3fb95022;
+            border: 1px solid #3fb950;
+            color: #7ee787;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        .prompt-label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .slide-5 {
+            background: linear-gradient(135deg, #0d1117 0%, #1a0f1d 100%);
+        }
+        .slide-5 h2 {
+            font-size: 2.5rem;
+            color: #bc8cff;
+            margin-bottom: 10px;
+        }
+        .slide-5 .slide-subtitle {
+            color: #8b949e;
+            font-size: 1.1rem;
+            margin-bottom: 35px;
+        }
+        .engagement-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .engagement-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 28px;
+        }
+        .engagement-card h3 {
+            color: #bc8cff;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
+        .engagement-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .engagement-card ul li {
+            padding: 8px 0;
+            border-bottom: 1px solid #21262d;
+            color: #8b949e;
+            font-size: 0.9rem;
+        }
+        .engagement-card ul li:last-child {
+            border-bottom: none;
+        }
+        .engagement-card ul li::before {
+            content: '▸ ';
+            color: #bc8cff;
+        }
+        .hackathon-themes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .theme-pill {
+            background: #bc8cff22;
+            border: 1px solid #bc8cff;
+            color: #bc8cff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .slide-6 {
+            background: linear-gradient(135deg, #0d1117 0%, #0f1a1d 100%);
+        }
+        .slide-6 h2 {
+            font-size: 2.5rem;
+            color: #39d353;
+            margin-bottom: 10px;
+        }
+        .slide-6 .slide-subtitle {
+            color: #8b949e;
+            font-size: 1.1rem;
+            margin-bottom: 35px;
+        }
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        .support-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 28px;
+        }
+        .support-card h3 {
+            color: #39d353;
+            margin-bottom: 16px;
+            font-size: 1.15rem;
+        }
+        .faq-item {
+            background: #0d1117;
+            border: 1px solid #21262d;
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin-bottom: 10px;
+        }
+        .faq-item .question {
+            color: #e6edf3;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+        }
+        .faq-item .answer {
+            color: #8b949e;
+            font-size: 0.82rem;
+            line-height: 1.5;
+        }
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .support-tag {
+            background: #39d35322;
+            border: 1px solid #39d353;
+            color: #39d353;
+            padding: 5px 12px;
+            border-radius: 16px;
+            font-size: 0.78rem;
+        }
+        .owner-list {
+            list-style: none;
+            padding: 0;
+        }
+        .owner-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid #21262d;
+            color: #8b949e;
+            font-size: 0.9rem;
+        }
+        .owner-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #30363d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .nav {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 100;
+            background: #161b22;
+            padding: 12px 24px;
+            border-radius: 30px;
+            border: 1px solid #30363d;
+        }
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #30363d;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .nav-dot.active {
+            background: #58a6ff;
+        }
+        .nav-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #161b22;
+            border: 1px solid #30363d;
+            color: #e6edf3;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background 0.2s;
+        }
+        .nav-arrow:hover {
+            background: #30363d;
+        }
+        .nav-arrow.left { left: 20px; }
+        .nav-arrow.right { right: 20px; }
+        .slide-number {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            color: #484f58;
+            font-size: 0.9rem;
+        }
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="slide-container" id="slideContainer">
+    <div class="slide slide-1">
+        <span class="slide-number">1 / 6</span>
+        <h1>🚀 GenAI Developer Exchange</h1>
+        <p class="subtitle">A motivating community of 400 developers sharing best practices,<br>learning together, and becoming more efficient with GenAI.</p>
+        <div class="stats">
+            <div class="stat-box"><div class="stat-icon">👥</div><div class="number">400</div><div class="label">Developers</div></div>
+            <div class="stat-box"><div class="stat-icon">💬</div><div class="number">MS Teams</div><div class="label">Forum Hub</div></div>
+            <div class="stat-box"><div class="stat-icon">📂</div><div class="number">6+</div><div class="label">Core Topics</div></div>
+            <div class="stat-box"><div class="stat-icon">📚</div><div class="number">Finite</div><div class="label">Knowledge</div></div>
+            <div class="stat-box"><div class="stat-icon">✨</div><div class="number">∞</div><div class="label">Possibilities</div></div>
+        </div>
+    </div>
+
+    <div class="slide slide-2">
+        <span class="slide-number">2 / 6</span>
+        <h2>📂 How to Access</h2>
+        <div class="channel-grid">
+            <div class="channel-card"><div class="icon">🤖</div><h3>Microsoft 365 Copilot</h3><p>Use Copilot in Word, Excel, PowerPoint, Teams meetings, and Outlook to improve day-to-day productivity.</p><span class="access-badge">M365 License Required</span></div>
+            <div class="channel-card"><div class="icon">💎</div><h3>AskBosch with Gemini</h3><p>Internal Gemini-based assistant for Bosch-specific questions, documentation search, and enterprise knowledge support.</p><span class="access-badge">Bosch SSO</span></div>
+            <div class="channel-card"><div class="icon">🐙</div><h3>GitHub</h3><p>GitHub and GitHub Copilot for coding workflows, code completion, chat, pull request support, and developer productivity.</p><span class="access-badge">GitHub Enterprise</span></div>
+            <div class="channel-card"><div class="icon">🧠</div><h3>Forum SubChannels</h3><p>Dedicated Teams subchannels for access, best practices, support, cost optimization, and community collaboration.</p><span class="access-badge">Open Community</span></div>
+            <div class="channel-card"><div class="icon">📣</div><h3>Announcements & News</h3><p>Stay informed about new features, releases, internal updates, and community highlights across the GenAI ecosystem.</p><span class="access-badge">All Members</span></div>
+            <div class="channel-card"><div class="icon">🛟</div><h3>Support Entry Point</h3><p>Start with FAQs, tag-based questions, and the support bot to quickly find answers and the right owners.</p><span class="access-badge">Self-Service First</span></div>
+        </div>
+    </div>
+
+    <div class="slide slide-3">
+        <span class="slide-number">3 / 6</span>
+        <h2>✅ Best Practices & Success Stories</h2>
+        <p class="slide-subtitle">Practical knowledge sharing across engineering teams</p>
+        <div class="practices-grid">
+            <div class="practice-card"><h3>🛠️ RAG-Based Agents</h3><p>Use powerful public agents with your data, SC2 included, for fast customer support, issue analysis, condensing vast knowledge into strong argumentations.</p><div class="example">Support ticket → retrieve similar cases<br>Requirement → find related specs<br>Issue → suggest next actions</div><span class="tag">RAG</span><span class="tag">Support</span></div>
+            <div class="practice-card"><h3>🎓 Reskilling: Guidance vs Training</h3><p>Differentiate lightweight day-to-day guidance from structured upskilling programs and formal training paths.</p><div class="example">Guidance: quick prompts, office hours<br>Training: workshops, labs, bootcamps<br>Outcome: faster adoption with less friction</div><span class="tag">Learning</span><span class="tag">Reskilling</span></div>
+            <div class="practice-card"><h3>🔬 State-of-the-Art Analysis</h3><p>Use genAI for covering vast information and articles in your preferred domain, produce succinct summaries, and convey the core advancement in the domain.</p><div class="example">New model release<br>Internal benchmark comparison<br>Recommended usage scenarios</div><span class="tag">Research</span><span class="tag">Trends</span></div>
+            <div class="practice-card"><h3>☁️ MiDAS, ViPER & Cloud Development</h3><p>Exchange lessons learned from internal platforms and cloud-native GenAI development patterns, pipelines, and deployments.</p><div class="example">MiDAS agents for the V-cycle<br>ViPER development practices<br>Cloud automation with GenAI</div><span class="tag">MiDAS</span><span class="tag">ViPER</span><span class="tag">Cloud</span></div>
+        </div>
+    </div>
+
+    <div class="slide slide-4">
+        <span class="slide-number">4 / 6</span>
+        <h2>💰 Costs & Efficient Usage</h2>
+        <p class="slide-subtitle">Use GenAI effectively while keeping token usage and platform costs under control</p>
+        <div class="cost-grid">
+            <div class="cost-card"><div class="icon" style="font-size:2rem;">📉</div><div class="metric">Lower</div><div class="metric-label">Token Waste</div><div class="description">Reduce unnecessary prompt size, repeated context, and avoidable retries with better orchestration and caching.</div></div>
+            <div class="cost-card"><div class="icon" style="font-size:2rem;">⚡</div><div class="metric">Better</div><div class="metric-label">Prompt Quality</div><div class="description">Clear, contextual prompts generate better outputs on the first try.</div></div>
+            <div class="cost-card"><div class="icon" style="font-size:2rem;">🎯</div><div class="metric">More</div><div class="metric-label">Engineering Value</div><div class="description">Focus AI usage on real developer productivity and business impact.</div></div>
+        </div>
+        <div class="token-details">
+            <h4>🧠 Efficiency for Tokens</h4>
+            <ul>
+                <li>Create the plan with a smarter, more expensive agent such as Opus 4.6 as orchestrator.</li>
+                <li>Use long and detailed prompts when needed — even with 1 day of preparation — to reduce rework later.</li>
+                <li>Apply agentic or fleet mode with lower-cost models for execution after the orchestration step.</li>
+                <li>Use a skills folder so you can enable or disable what the agent uses.</li>
+                <li>Cached input can reduce cost dramatically — around 10 times lower cost for reused context.</li>
+                <li>The grill-me skill can ask the user at each step to choose among several options while also suggesting the preferred one.</li>
+                <li>The Jira skill can document in the Jira ticket all interaction with the genAI agent.</li>
+            </ul>
+        </div>
+        <div class="prompt-example">
+            <h4>💡 Bad Prompts vs Good Prompts</h4>
+            <div class="prompt-compare">
+                <div class="prompt-bad">
+                    <span class="prompt-label">❌ Bad Prompt</span>
+                    "write me some code that detects a checkerboard in an image, implement the error handling too"
+                    <br><br>
+                    <em>→ Generic output, no project context, needs many follow-ups, ignores existing work</em>
+                </div>
+                <div class="prompt-good">
+                    <span class="prompt-label">✅ Good Prompt</span>
+/plan 
+
+Previously, I have implemented a simple calibration for the Honda 6V project. The calibration target for this project (for each camera)
+consists of two april tags, with a checkerboard in the middle. For now, I have a simple implementation which just detects the April tags
+and does the estimation based on them. I will want to also implement the detection of the checkerboard, to obtain a better estimation. Use /eol-h6v-development for more details about this project.
+
+I was thinking on using the tag detection to compute a homography from the target board plane to the image, and use this information
+to search for the checkerboard crosses (the points where two black squares touch). 
+
+Regarding how exactly to find the corners. I previously did an analysis on this and the conclusions are:
+1. It would be better to use the homography directly to search in the input image, and not do any warping.
+2. The best approach for the detection of the crosses would be the "radon cross detector" which uses the localized
+radon transform for the detection.
+
+You can find my report here: @/workspace/entrytrim/my_local_stuff/h6v_checkerboard_detection/poc_experiments/experiments/11_filter_response_comparison/report/checkerboard_cross_detection_experiment_report.tex
+And a basic python implementation of the radon detector in @/workspace/entrytrim/my_local_stuff/h6v_checkerboard_detection/poc_experiments/experiments/11_filter_response_comparison/run.py
+(note that for now I am only interested in the basic implementation, with the 4 lines passing through each point, and not the dense implementation)
+
+So, I will want you to implement two separate things and then put them together:
+1. I will want a library for the radon cross detector.
+  - This will have to be implemented as a separate library in @/workspace/customers/row/honda/honda_elite_b/basic_viper_6v/components/radon_cross_detector
+  - I will want it to have two different implementation:
+    i. The naive implementation which does it similarly to how it is done in the Python script. I don't know if it's better to have a convolution (maybe the compiler will be able to optimize entries which are always zero? or maybe there is the possibility of using some sparse kernels in the code? no idea) or if it is better to have multiple for loops for traversing the lines. Please investigate this during planning. But the idea is that this does not use additional memory, but needs increased runtime.
+    ii. An approach similar to how the integral image is used to compute the response for Haar filters faster. I want a new buffer that for each new element will store the sums up to that element on: the horizontal line, the vertical line and the two diagonals. This will allow us to compute efficiently the integrals passing through that line. It would be nice to use bit fields for this, if it is not too difficult.
+  - Make this templatized on pixel size, so we can use it in the future for different projects with 8 bits per pixel 16 bits per pixel and so on.
+  - Use TImageViews for inputs, do not couple the API to concrete image dimensions.
+  - Implement unit tests for this
+  - In the future we'll also implement an algorithm to find the maximum response with subpixel precision, but for now this is not in the scope of this task.       
+
+2. I will want a library which computes homographies. 
+  - This will have to be implemented as a separate library in @/workspace/customers/row/honda/honda_elite_b/basic_viper_6v/components/eol_homography/
+  - As a reference, you can use the code in @/workspace/entrytrim/components/viper/c3d/april_tag_detector/src/viper/april_tag_detector/april_tag_detector_compute_homography.hpp which implements the DLT algorithm (for now, just copy-paste what's needed).
+  - The current implementation is hardcoded to work only for a correspondence of exactly 4 points. You will have to extend it to work with more than just 4 point correspondences (for this Honda 6V usecase we have 8 point correspondences given by the corners of the april tags)
+  - There is an implementation for singular value decomposition (SVD) which you might find useful here: @/workspace/entrytrim/components/common/algebra/include/algebra/svd_factorization.hpp
+  - Also, please implement unit testing for this (you can use the tests in the existing implementation as a starting point)
+
+3. Put everything together inside @/workspace/customers/row/honda/honda_elite_b/basic_viper_6v/components/interface_honda_6v/src/eol_calibration_process.hpp such that after the tags are detected, we compute the homography from the board to the image and then for each cross on the checkerboard target, we search for the cross in a smallish neighborhood around the expected position (given the homography) and select the cross there if we find any. Then, all the correspondences should be passed to the estimator to obtain the calibration. I do not exactly expect unit tests for this part. But you should ensure that @/workspace/customers/row/honda/honda_elite_b/basic_viper_6v/checkbuilds.sh still works and also that @/workspace/customers/row/honda/honda_elite_b/basic_viper_6v/apps/main_eol.cpp still works (you might need to edit the TagAndCheckerboardSpec with the proper values for the checkerboard target, I think they are just stubbed for now)
+
+Some personal preferences regarding the implementation:
+- if it makes sense, try to use the pattern where you return xcf::expected and implement nice enums with possible failure cases
+- prefer using xcf::wide_contract unless it makes sense to use narrow_contract (and ensure you do the necessary checks beforehand!)
+- use range-for loops, possibly with xcf::zip and xcf::enumerate if possible, instead of old style loops. 
+
+Please try to make the plan with enough details such that it will be able to be implemented by a fleet of smaller models (like Sonnet and Haiku). 
+Also use the skill /grill-me to ensure that we are aligned on the plan before starting the implementation.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide slide-5">
+        <span class="slide-number">5 / 6</span>
+        <h2>🎉 Advertisement, News & Hackathons</h2>
+        <p class="slide-subtitle">Keep the community active, informed, and motivated</p>
+        <div class="engagement-grid">
+            <div class="engagement-card"><h3>📢 Advertisement & News</h3><ul><li>Share product news and model updates</li><li>Promote attractive new GenAI features</li><li>Highlight internal success stories</li><li>Announce workshops and office hours</li><li>Spotlight useful tools and experiments</li></ul></div>
+            <div class="engagement-card"><h3>🏅 Hackathon Tracks</h3><p style="color:#8b949e; font-size:0.9rem; margin-bottom:12px;">Encourage innovation with focused challenge categories</p><div class="hackathon-themes"><span class="theme-pill">🚀 Full-Blown GenAI Development</span><span class="theme-pill">💸 Lowest Cost per Line of Code</span><span class="theme-pill">🤖 Best Agent or Assistant</span><span class="theme-pill">⚡ Fastest Useful Prototype</span><span class="theme-pill">🧪 Most Creative Use Case</span></div></div>
+            <div class="engagement-card"><h3>📅 Community Rhythm</h3><ul><li>Weekly tips and curated links</li><li>Monthly best-practice sharing sessions</li><li>Open demo slots for teams</li><li>Quarterly hackathons</li><li>Recognition for top contributors</li></ul></div>
+            <div class="engagement-card"><h3>🏆 Motivation & Recognition</h3><ul><li>Points for sharing prompts & solutions</li><li>Leaderboard: Top contributors per month</li><li>Badges: First post, Mentor, Innovator, etc.</li><li>Annual "GenAI Champion" award</li><li>Featured in internal newsletter</li></ul></div>
+        </div>
+    </div>
+
+    <div class="slide slide-6">
+        <span class="slide-number">6 / 6</span>
+        <h2>🛟 Support & Community Help</h2>
+        <p class="slide-subtitle">Structured support so everyone can participate and move faster</p>
+        <div class="support-grid">
+            <div class="support-card"><h3>🤖 Copilot-Integrated Support Bot</h3><p style="color:#8b949e; margin-bottom:16px;">A free BotLike support assistant in Teams for common questions and fast guidance.</p><div class="faq-item"><div class="question">Q: How do I get access to GitHub Copilot?</div><div class="answer">A: Use the access channel, follow the internal request flow, and check eligibility requirements.</div></div><div class="faq-item"><div class="question">Q: Where should I ask prompt-related questions?</div><div class="answer">A: Use the best-practices or support channels and include relevant tags for routing.</div></div></div>
+            <div class="support-card"><h3>📋 FAQ</h3><div class="faq-item"><div class="question">Q: Which tool should I use first?</div><div class="answer">A: Start with the tool best aligned to your task: M365 for productivity, GitHub for coding, AskBosch for internal knowledge.</div></div><div class="faq-item"><div class="question">Q: How do I avoid high token costs?</div><div class="answer">A: Keep prompts focused, reuse context smartly, and share proven prompt templates with the community.</div></div><div class="faq-item"><div class="question">Q: Can I ask platform-specific questions?</div><div class="answer">A: Yes — use the right subchannel and add tags so the right owners can respond faster.</div></div></div>
+            <div class="support-card"><h3>🏷️ #Tag-Based Questions</h3><p style="color:#8b949e; margin-bottom:16px;">Route questions to the right experts with clear tags:</p><div class="tag-list"><span class="support-tag">#copilot</span><span class="support-tag">#github</span><span class="support-tag">#gemini</span><span class="support-tag">#rag</span><span class="support-tag">#tokens</span><span class="support-tag">#prompts</span><span class="support-tag">#midas</span><span class="support-tag">#viper</span><span class="support-tag">#cloud</span><span class="support-tag">#hackathon</span><span class="support-tag">#cost</span><span class="support-tag">#access</span></div></div>
+            <div class="support-card"><h3>👥 Channel Owners</h3><ul class="owner-list"><li><span class="owner-avatar">🐙</span> <div><strong>GitHub & Copilot</strong><br><span style="font-size:0.8rem;">Developer tools owner</span></div></li><li><span class="owner-avatar">🧠</span> <div><strong>RAG & Best Practices</strong><br><span style="font-size:0.8rem;">AI engineering owner</span></div></li><li><span class="owner-avatar">☁️</span> <div><strong>Cloud Development</strong><br><span style="font-size:0.8rem;">Platform team owner</span></div></li><li><span class="owner-avatar">💬</span> <div><strong>Teams Forum Support</strong><br><span style="font-size:0.8rem;">Community moderators</span></div></li></ul></div>
+        </div>
+    </div>
+</div>
+
+<div class="nav" id="nav"></div>
+<div class="nav-arrow left" onclick="navigate(-1)">◀</div>
+<div class="nav-arrow right" onclick="navigate(1)">▶</div>
+
+<script>
+    const container = document.getElementById('slideContainer');
+    const nav = document.getElementById('nav');
+    const totalSlides = document.querySelectorAll('.slide').length;
+    let current = 0;
+
+    for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+        dot.onclick = () => goTo(i);
+        nav.appendChild(dot);
+    }
+
+    function goTo(index) {
+        current = Math.max(0, Math.min(index, totalSlides - 1));
+        container.style.transform = `translateX(-${current * 100}vw)`;
+        document.querySelectorAll('.nav-dot').forEach((d, i) => {
+            d.classList.toggle('active', i === current);
+        });
+    }
+
+    function navigate(dir) {
+        goTo(current + dir);
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ') navigate(1);
+        if (e.key === 'ArrowLeft') navigate(-1);
+    });
+</script>
+
+</body>
+</html>
