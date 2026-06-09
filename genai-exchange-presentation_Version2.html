@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenAI Exchange – 400 Developers Community</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0d1117;
+            color: #e6edf3;
+            overflow: hidden;
+            height: 100vh;
+        }
+        .slide-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .slide {
+            min-width: 100vw;
+            height: 100vh;
+            padding: 60px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        /* Slide 1 - Title */
+        .slide-1 {
+            background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #1a2332 100%);
+            align-items: center;
+            text-align: center;
+        }
+        .slide-1 h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(90deg, #58a6ff, #3fb950, #f0883e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+        .slide-1 .subtitle {
+            font-size: 1.4rem;
+            color: #8b949e;
+            margin-bottom: 40px;
+        }
+        .slide-1 .stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .stat-box {
+            text-align: center;
+            padding: 30px;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            background: #161b22;
+            min-width: 180px;
+        }
+        .stat-box .number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #58a6ff;
+        }
+        .stat-box .label {
+            font-size: 1rem;
+            color: #8b949e;
+            margin-top: 8px;
+        }
+
+        /* Slide 2 - Teams Structure */
+        .slide-2 {
+            background: linear-gradient(135deg, #0d1117 0%, #1c1f26 100%);
+        }
+        .slide-2 h2 {
+            font-size: 2.5rem;
+            color: #58a6ff;
+            margin-bottom: 40px;
+        }
+        .channel-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .channel-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 24px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .channel-card:hover {
+            transform: translateY(-4px);
+            border-color: #58a6ff;
+        }
+        .channel-card .icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+        .channel-card h3 {
+            font-size: 1.1rem;
+            color: #e6edf3;
+            margin-bottom: 8px;
+        }
+        .channel-card p {
+            font-size: 0.85rem;
+            color: #8b949e;
+            line-height: 1.5;
+        }
+        .access-badge {
+            display: inline-block;
+            background: #1f6feb33;
+            border: 1px solid #1f6feb;
+            color: #58a6ff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            margin-top: 8px;
+        }
+
+        /* Slide 3 - Best Practices */
+        .slide-3 {
+            background: linear-gradient(135deg, #0d1117 0%, #0f1d0f 100%);
+        }
+        .slide-3 h2 {
+            font-size: 2.5rem;
+            color: #3fb950;
+            margin-bottom: 10px;
+        }
+        .slide-3 .slide-subtitle {
+            color: #8b949e;
+            font-size: 1.1rem;
+            margin-bottom: 35px;
+        }
+        .practices-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        .practice-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+        .practice-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: #3fb950;
+        }
+        .practice-card h3 {
+            color: #e6edf3;
+            margin-bottom: 12px;
+            font-size: 1.15rem;
+        }
+        .practice-card p {
+            color: #8b949e;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .practice-card .example {
+            margin-top: 12px;
+            background: #0d1117;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: #7ee787;
+            border: 1px solid #21262d;
+        }
+        .tag {
+            display: inline-block;
+            background: #3fb95022;
+            color: #3fb950;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            margin-right: 6px;
+            margin-top: 10px;
+        }
+
+        /* Slide 4 - Cost & Efficiency */
+        .slide-4 {
+            background: linear-gradient(135deg, #0d1117 0%, #1d1a0f 100%);
+        }
+        .slide-4 h2 {
+            font-size: 2.5rem;
+            color: #f0883e;
+            margin-bottom: 10px;
+        }
+        .slide-4 .slide-subtitle {
+            color: #8b949e;
+            font-size: 1.1rem;
+            margin-bottom: 35px;
+        }
+        .cost-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .cost-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 28px;
+            text-align: center;
+        }
+        .cost-card .metric {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #f0883e;
+            margin: 12px 0;
+        }
+        .cost-card .metric-label {
+            font-size: 0.9rem;
+            color: #8b949e;
+        }
+        .cost-card .description {
+            margin-top: 16px;
+            font-size: 0.85rem;
+            color: #8b949e;
+            line-height: 1.5;
+        }
+        .prompt-example {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 24px;
+        }
+        .prompt-example h4 {
+            color: #f0883e;
+            margin-bottom: 12px;
+        }
+        .prompt-compare {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .prompt-bad, .prompt-good {
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        .prompt-bad {
+            background: #f8514922;
+            border: 1px solid #f85149;
+            color: #ffa198;
+        }
+        .prompt-good {
+            background: #3fb95022;
+            border: 1px solid #3fb950;
+            color: #7ee787;
+        }
+        .prompt-label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        /* Slide 5 - Engagement & Hackathons */
+        .slide-5 {
+            background: linear-gradient(135deg, #0d1117 0%, #1a0f1d 100%);
+        }
+        .slide-5 h2 {
+            font-size: 2.5rem;
+            color: #bc8cff;
+            margin-bottom: 10px;
+        }
+        .slide-5 .slide-subtitle {
+            color: #8b949e;
+            font-size: 1.1rem;
+            margin-bottom: 35px;
+        }
+        .engagement-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .engagement-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 28px;
+        }
+        .engagement-card h3 {
+            color: #bc8cff;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
+        .engagement-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .engagement-card ul li {
+            padding: 8px 0;
+            border-bottom: 1px solid #21262d;
+            color: #8b949e;
+            font-size: 0.9rem;
+        }
+        .engagement-card ul li:last-child {
+            border-bottom: none;
+        }
+        .engagement-card ul li::before {
+            content: '▸ ';
+            color: #bc8cff;
+        }
+        .hackathon-themes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .theme-pill {
+            background: #bc8cff22;
+            border: 1px solid #bc8cff;
+            color: #bc8cff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* Slide 6 - Support */
+        .slide-6 {
+            background: linear-gradient(135deg, #0d1117 0%, #0f1a1d 100%);
+        }
+        .slide-6 h2 {
+            font-size: 2.5rem;
+            color: #39d353;
+            margin-bottom: 10px;
+        }
+        .slide-6 .slide-subtitle {
+            color: #8b949e;
+            font-size: 1.1rem;
+            margin-bottom: 35px;
+        }
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        .support-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 28px;
+        }
+        .support-card h3 {
+            color: #39d353;
+            margin-bottom: 16px;
+            font-size: 1.15rem;
+        }
+        .faq-item {
+            background: #0d1117;
+            border: 1px solid #21262d;
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin-bottom: 10px;
+        }
+        .faq-item .question {
+            color: #e6edf3;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+        }
+        .faq-item .answer {
+            color: #8b949e;
+            font-size: 0.82rem;
+            line-height: 1.5;
+        }
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .support-tag {
+            background: #39d35322;
+            border: 1px solid #39d353;
+            color: #39d353;
+            padding: 5px 12px;
+            border-radius: 16px;
+            font-size: 0.78rem;
+        }
+        .owner-list {
+            list-style: none;
+            padding: 0;
+        }
+        .owner-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid #21262d;
+            color: #8b949e;
+            font-size: 0.9rem;
+        }
+        .owner-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #30363d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 100;
+            background: #161b22;
+            padding: 12px 24px;
+            border-radius: 30px;
+            border: 1px solid #30363d;
+        }
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #30363d;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .nav-dot.active {
+            background: #58a6ff;
+        }
+        .nav-arrows {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+        }
+        .nav-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #161b22;
+            border: 1px solid #30363d;
+            color: #e6edf3;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background 0.2s;
+        }
+        .nav-arrow:hover {
+            background: #30363d;
+        }
+        .nav-arrow.left { left: 20px; }
+        .nav-arrow.right { right: 20px; }
+
+        .slide-number {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            color: #484f58;
+            font-size: 0.9rem;
+        }
+
+        /* MiDAS / ViPER section */
+        .project-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .project-card {
+            background: #0d1117;
+            border: 1px solid #21262d;
+            border-radius: 8px;
+            padding: 18px;
+        }
+        .project-card h4 {
+            color: #58a6ff;
+            margin-bottom: 8px;
+        }
+        .project-card p {
+            color: #8b949e;
+            font-size: 0.82rem;
+            line-height: 1.4;
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="slide-container" id="slideContainer">
+
+    <!-- SLIDE 1: Title -->
+    <div class="slide slide-1">
+        <span class="slide-number">1 / 6</span>
+        <h1>🚀 GenAI Developer Exchange</h1>
+        <p class="subtitle">A motivated community of engineers sharing best practices,<br>learning together, and driving business efficiency with GenAI.</p>
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-icon">👥</div>
+                <div class="number">400</div>
+                <div class="label">Developers</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-icon">📂</div>
+                <div class="number">10+</div>
+                <div class="label">SubChannels</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-icon">📚</div>
+                <div class="number">Finite</div>
+                <div class="label">Knowledge</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-icon">✨</div>
+                <div class="number">∞</div>
+                <div class="label">Possibilities</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 2: Access and usage -->
+    <div class="slide slide-2">
+        <span class="slide-number">2 / 6</span>
+        <h2>📂 Access and usage</h2>
+        <div class="channel-grid">
+            <div class="channel-card">
+                <div class="icon">🤖</div>
+                <h3>Microsoft 365 Copilot</h3>
+                <p>Leverage Copilot in Word, Excel, PowerPoint, Teams meetings & Outlook for daily productivity.</p>
+                <span class="access-badge">M365 License Required</span>
+            </div>
+            <div class="channel-card">
+                <div class="icon">💎</div>
+                <h3>AskBosch with Gemini</h3>
+                <p>Internal Gemini-powered assistant for Bosch-specific queries, documentation search, and knowledge retrieval.</p>
+                <span class="access-badge">Bosch SSO</span>
+            </div>
+            <div class="channel-card">
+                <div class="icon">🐙</div>
+                <h3>GitHub Copilot</h3>
+                <p>AI pair-programming in VS Code, IntelliJ, and CLI. Code completion, chat, and PR summaries.</p>
+                <span class="access-badge">GitHub Enterprise</span>
+            </div>
+            <div class="channel-card">
+                <div class="icon">🧠</div>
+                <h3>RAG-Based Agents</h3>
+                <p>Custom agents for customer support, issue triage, and requirement analysis using Retrieval-Augmented Generation.</p>
+                <span class="access-badge">API Access</span>
+            </div>
+            <div class="channel-card">
+                <div class="icon">📊</div>
+                <h3>MiDAS & ViPER</h3>
+                <p>Internal platforms for data analytics and development pipelines enhanced with GenAI capabilities.</p>
+                <span class="access-badge">Project Team</span>
+            </div>
+            <div class="channel-card">
+                <div class="icon">☁️</div>
+                <h3>Cloud Development</h3>
+                <p>GenAI-assisted cloud infrastructure, IaC generation, and deployment automation on Azure/AWS.</p>
+                <span class="access-badge">Cloud Subscription</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 3: Best Practices -->
+    <div class="slide slide-3">
+        <span class="slide-number">3 / 6</span>
+        <h2>✅ Best Practices</h2>
+        <p class="slide-subtitle">Real examples from the community — learn from success stories and state-of-the-art analysis</p>
+        <div class="practices-grid">
+            <div class="practice-card">
+                <h3>🏆 Success Story: Automated Code Reviews</h3>
+                <p>Team reduced review turnaround from 2 days to 3 hours using GitHub Copilot PR summaries + custom review checklists.</p>
+                <div class="example">
+                    // Before: Manual 48h review cycle<br>
+                    // After: AI-assisted → 3h avg turnaround<br>
+                    // Savings: ~120 dev-hours/month
+                </div>
+                <span class="tag">GitHub Copilot</span>
+                <span class="tag">Code Review</span>
+            </div>
+            <div class="practice-card">
+                <h3>🎓 Reskilling: Guidance vs Training</h3>
+                <p>Structured path from basic prompt engineering to building production RAG pipelines.</p>
+                <div class="example">
+                    Level 1: Prompt basics (2h self-paced)<br>
+                    Level 2: Copilot workflows (4h workshop)<br>
+                    Level 3: RAG agent building (2-day bootcamp)<br>
+                    Level 4: Fine-tuning & eval (advanced)
+                </div>
+                <span class="tag">Learning Path</span>
+                <span class="tag">Self-Paced</span>
+            </div>
+            <div class="practice-card">
+                <h3>🔬 State of the Art: Multi-Agent Systems</h3>
+                <p>Latest research on orchestrating multiple GenAI agents for complex software engineering tasks.</p>
+                <div class="example">
+                    Agent 1: Requirements → User Stories<br>
+                    Agent 2: Stories → Architecture Design<br>
+                    Agent 3: Design → Implementation<br>
+                    Agent 4: Code → Test Generation
+                </div>
+                <span class="tag">Research</span>
+                <span class="tag">Multi-Agent</span>
+            </div>
+            <div class="practice-card">
+                <h3>🛠️ RAG for Customer Support</h3>
+                <p>Building a retrieval pipeline over 50K support tickets to auto-classify and suggest resolutions.</p>
+                <div class="example">
+                    Input: "Device error code E-4021"<br>
+                    → Vector search: Top 5 similar tickets<br>
+                    → LLM: Synthesized resolution steps<br>
+                    → Result: 73% auto-resolution rate
+                </div>
+                <span class="tag">RAG</span>
+                <span class="tag">Customer Support</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 4: Costs & Efficiency -->
+    <div class="slide slide-4">
+        <span class="slide-number">4 / 6</span>
+        <h2>💰 Costs & Efficient Token Usage</h2>
+        <p class="slide-subtitle">Maximize output while minimizing API costs — every token counts</p>
+        <div class="cost-grid">
+            <div class="cost-card">
+                <div class="icon" style="font-size:2rem;">📉</div>
+                <div class="metric">-40%</div>
+                <div class="metric-label">Token Cost Reduction</div>
+                <div class="description">By switching to structured prompts and caching repeated context windows.</div>
+            </div>
+            <div class="cost-card">
+                <div class="icon" style="font-size:2rem;">⚡</div>
+                <div class="metric">3:1</div>
+                <div class="metric-label">Output/Input Ratio</div>
+                <div class="description">Best-in-class prompts generate 3x more useful output per input token spent.</div>
+            </div>
+            <div class="cost-card">
+                <div class="icon" style="font-size:2rem;">🎯</div>
+                <div class="metric">85%</div>
+                <div class="metric-label">First-Try Accuracy</div>
+                <div class="description">Well-crafted prompts with examples reduce iteration loops and wasted tokens.</div>
+            </div>
+        </div>
+        <div class="prompt-example">
+            <h4>💡 Good Prompts vs Bad Prompts</h4>
+            <div class="prompt-compare">
+                <div class="prompt-bad">
+                    <span class="prompt-label">❌ Costly & Vague</span>
+                    "write me some code that detects a checkerboard in an image"
+                    <br><br>
+                    <em>→ Generic output, no project context, needs many follow-ups, ignores existing work</em>
+                </div>
+                <div class="prompt-good">
+                    <span class="prompt-label">✅ Efficient & Specific</span>
+                    "Previously, I have implemented a simple calibration for the Honda 6V project. The calibration target for this project (for each camera) consists of two april tags, with a checkerboard in the middle. For now, I have a simple implementation which just detect ..."
+                    <br><br>
+                    <em>→ Project-aware, builds on prior work, precise & production-ready</em>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 5: Engagement & Hackathons -->
+    <div class="slide slide-5">
+        <span class="slide-number">5 / 6</span>
+        <h2>🎉 Advertisement, News & Hackathons</h2>
+        <p class="slide-subtitle">Keep the community engaged, informed, and competitive</p>
+        <div class="engagement-grid">
+            <div class="engagement-card">
+                <h3>📢 News & Features</h3>
+                <ul>
+                    <li>Weekly digest: New model releases & capabilities</li>
+                    <li>Monthly spotlight: Best community contribution</li>
+                    <li>Tool updates: Copilot, Gemini, Azure AI changes</li>
+                    <li>Internal announcements: New APIs, access grants</li>
+                    <li>External: Conference highlights & paper summaries</li>
+                </ul>
+            </div>
+            <div class="engagement-card">
+                <h3>🏅 Hackathon Tracks</h3>
+                <p style="color:#8b949e; font-size:0.9rem; margin-bottom:12px;">Quarterly events with prizes & leadership visibility</p>
+                <div class="hackathon-themes">
+                    <span class="theme-pill">🚀 Full-Blown GenAI Development</span>
+                    <span class="theme-pill">💸 Lowest Cost per Line of Code</span>
+                    <span class="theme-pill">🤖 Best RAG Agent</span>
+                    <span class="theme-pill">⚡ Fastest Prototype</span>
+                    <span class="theme-pill">🧪 Most Creative Use Case</span>
+                    <span class="theme-pill">🔒 Security-First AI</span>
+                </div>
+            </div>
+            <div class="engagement-card">
+                <h3>📅 Event Calendar</h3>
+                <ul>
+                    <li><strong>Week 1:</strong> Lightning talks (15 min each)</li>
+                    <li><strong>Week 2:</strong> Hands-on workshop</li>
+                    <li><strong>Week 3:</strong> Office hours & Q&A</li>
+                    <li><strong>Week 4:</strong> Demo day & show-and-tell</li>
+                    <li><strong>Quarterly:</strong> 48h Hackathon Sprint</li>
+                </ul>
+            </div>
+            <div class="engagement-card">
+                <h3>🏆 Gamification & Recognition</h3>
+                <ul>
+                    <li>Points for sharing prompts & solutions</li>
+                    <li>Leaderboard: Top contributors per month</li>
+                    <li>Badges: First post, Mentor, Innovator, etc.</li>
+                    <li>Annual "GenAI Champion" award</li>
+                    <li>Featured in internal newsletter</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 6: Support -->
+    <div class="slide slide-6">
+        <span class="slide-number">6 / 6</span>
+        <h2>🛟 Support & Community Help</h2>
+        <p class="slide-subtitle">No one left behind — structured support with Copilot-powered bot assistance</p>
+        <div class="support-grid">
+            <div class="support-card">
+                <h3>🤖 Copilot-Integrated Bot (Free)</h3>
+                <p style="color:#8b949e; margin-bottom:16px;">BotLike assistant embedded in Teams, answering common questions 24/7.</p>
+                <div class="faq-item">
+                    <div class="question">Q: How do I get GitHub Copilot access?</div>
+                    <div class="answer">A: Submit request via ServiceNow → "GenAI Tools" catalog → Approved within 24h for eligible roles.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="question">Q: Which model should I use for code generation?</div>
+                    <div class="answer">A: GPT-4o for complex logic, Claude for long-context, Gemini for multimodal. See #best-practices for comparison matrix.</div>
+                </div>
+            </div>
+            <div class="support-card">
+                <h3>📋 FAQ & Knowledge Base</h3>
+                <div class="faq-item">
+                    <div class="question">Q: Token limits exceeded — what now?</div>
+                    <div class="answer">A: Split context into chunks, use summarization for history, or request quota increase via Cloud team.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="question">Q: Can I use GenAI for customer data?</div>
+                    <div class="answer">A: Only via approved internal endpoints (AskBosch, Azure Private). Never paste PII into public APIs.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="question">Q: How to evaluate RAG quality?</div>
+                    <div class="answer">A: Use RAGAS framework metrics: faithfulness, answer relevancy, context precision. See pinned guide.</div>
+                </div>
+            </div>
+            <div class="support-card">
+                <h3>🏷️ #Tag-Based Questions</h3>
+                <p style="color:#8b949e; margin-bottom:16px;">Use tags to route questions to the right experts:</p>
+                <div class="tag-list">
+                    <span class="support-tag">#copilot</span>
+                    <span class="support-tag">#gemini</span>
+                    <span class="support-tag">#rag</span>
+                    <span class="support-tag">#tokens</span>
+                    <span class="support-tag">#prompts</span>
+                    <span class="support-tag">#midas</span>
+                    <span class="support-tag">#viper</span>
+                    <span class="support-tag">#cloud</span>
+                    <span class="support-tag">#hackathon</span>
+                    <span class="support-tag">#security</span>
+                    <span class="support-tag">#cost</span>
+                    <span class="support-tag">#access</span>
+                </div>
+            </div>
+            <div class="support-card">
+                <h3>👥 Channel Owners & Experts</h3>
+                <ul class="owner-list">
+                    <li><span class="owner-avatar">🧑‍💻</span> <div><strong>Copilot & GitHub</strong><br><span style="font-size:0.8rem;">DevTools team lead</span></div></li>
+                    <li><span class="owner-avatar">🔬</span> <div><strong>RAG & Agents</strong><br><span style="font-size:0.8rem;">AI/ML engineering</span></div></li>
+                    <li><span class="owner-avatar">☁️</span> <div><strong>Cloud & Infra</strong><br><span style="font-size:0.8rem;">Platform team</span></div></li>
+                    <li><span class="owner-avatar">💰</span> <div><strong>Costs & Governance</strong><br><span style="font-size:0.8rem;">FinOps lead</span></div></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Navigation -->
+<div class="nav" id="nav"></div>
+<div class="nav-arrow left" onclick="navigate(-1)">◀</div>
+<div class="nav-arrow right" onclick="navigate(1)">▶</div>
+
+<script>
+    const container = document.getElementById('slideContainer');
+    const nav = document.getElementById('nav');
+    const totalSlides = document.querySelectorAll('.slide').length;
+    let current = 0;
+
+    // Build nav dots
+    for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+        dot.onclick = () => goTo(i);
+        nav.appendChild(dot);
+    }
+
+    function goTo(index) {
+        current = Math.max(0, Math.min(index, totalSlides - 1));
+        container.style.transform = `translateX(-${current * 100}vw)`;
+        document.querySelectorAll('.nav-dot').forEach((d, i) => {
+            d.classList.toggle('active', i === current);
+        });
+    }
+
+    function navigate(dir) {
+        goTo(current + dir);
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ') navigate(1);
+        if (e.key === 'ArrowLeft') navigate(-1);
+    });
+</script>
+
+</body>
+</html>
